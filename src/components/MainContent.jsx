@@ -1,3 +1,5 @@
+import { ContactForm } from './ContactForm';
+
 const chapters = [
     'Reactの概要を理解しよう',
     'Reactでよく使われるJavaScriptの記法を理解しよう',
@@ -22,7 +24,15 @@ const chapters = [
 
 const chapterKeys = chapters.map(() => crypto.randomUUID());
 
-export function MainContent({ progress = 0 }) {
+export function MainContent({ progress, setProgress }) {
+
+    const handleProgress = () => {
+        if (progress < 100) {
+            setProgress(progress + 10);
+        }
+    };
+
+
     return (
         <main>
             <section>
@@ -37,6 +47,7 @@ export function MainContent({ progress = 0 }) {
                 {progress === 100 && <p>おめでとうございます！全ての学習が完了しました。</p> }
                 {progress >= 50 && progress < 100 && <p>後半戦です！気を抜かずに頑張りましょう。</p>}
                 {progress < 50 && <p>これからですね！小さな積み重ねが大きな成果になりますよ。</p>}
+                <button onClick={handleProgress}>10%を進める</button>
             </section>
 
             <section>
@@ -49,6 +60,8 @@ export function MainContent({ progress = 0 }) {
                     ))}
                 </ul>
             </section>
+
+            <ContactForm />
         </main>
     );
 }
